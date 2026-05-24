@@ -37,6 +37,7 @@
           <li class="nav-item"><a href="#about" class="nav-link" id="link-about">About Us</a></li>
           <li class="nav-item"><a href="#testimonials" class="nav-link" id="link-testimonials">Testimonials</a></li>
           <li class="nav-item"><a href="#contact" class="nav-link" id="link-contact">Contact</a></li>
+          <li class="nav-item"><a href="#" class="nav-link" id="nav-admin-btn">Admin Portal</a></li>
           <li class="nav-item nav-btn">
             <a href="#contact" class="btn btn-primary" id="nav-apply-btn" style="padding: 10px 20px; font-size: 0.85rem;">Apply Now</a>
           </li>
@@ -653,6 +654,145 @@
     </div>
   </div>
 
+  <!-- Admin Login Modal -->
+  <div class="modal-overlay" id="admin-login-modal">
+    <div class="modal-content-wrapper glass-panel-dark" style="max-width: 400px;">
+      <button class="modal-close-btn" id="admin-login-close" aria-label="Close modal">✕</button>
+      <h3 class="form-title" style="margin-top: 10px; text-align: center;">Admin Login</h3>
+      <p style="font-size: 0.9rem; color: var(--color-text-muted-light); margin-bottom: var(--spacing-sm); text-align: center;">Enter credentials to access the admin lead dashboard.</p>
+      
+      <form id="admin-login-form" autocomplete="off">
+        <div class="form-group">
+          <label for="admin-username">Username</label>
+          <input type="text" class="form-control" id="admin-username" placeholder="e.g. admin" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="admin-password">Password</label>
+          <input type="password" class="form-control" id="admin-password" placeholder="••••••••" required>
+        </div>
+
+        <div id="admin-login-error" style="color: #ff4d4d; font-size: 0.85rem; margin-bottom: var(--spacing-sm); display: none; text-align: center;">
+          Invalid username or password.
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit-btn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard Panel -->
+  <div class="admin-dashboard-overlay" id="admin-dashboard">
+    <div class="admin-dashboard-container glass-panel-dark">
+      
+      <!-- Dashboard Header -->
+      <header class="admin-dashboard-header">
+        <div class="admin-brand">
+          <span class="nav-logo-icon"></span>
+          <h2>NextStep <span style="font-weight: 300;">Admissions Admin</span></h2>
+        </div>
+        <div class="admin-user-actions">
+          <span class="admin-badge">Admin Mode</span>
+          <button class="btn btn-glass" id="admin-logout-btn" style="padding: 8px 16px; font-size: 0.85rem;">Logout</button>
+        </div>
+      </header>
+
+      <!-- Stats Section -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="stat-icon">👁️</div>
+          <div class="stat-content">
+            <span class="stat-label">Total Page Views</span>
+            <h3 class="stat-value" id="stat-total-views">0</h3>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-content">
+            <span class="stat-label">Unique Visitors</span>
+            <h3 class="stat-value" id="stat-unique-visitors">0</h3>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-content">
+            <span class="stat-label">Total Leads</span>
+            <h3 class="stat-value" id="stat-total-leads">0</h3>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon">🎓</div>
+          <div class="stat-content">
+            <span class="stat-label">SRM Leads</span>
+            <h3 class="stat-value" id="stat-srm-leads">0</h3>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon">🏫</div>
+          <div class="stat-content">
+            <span class="stat-label">Acharya Leads</span>
+            <h3 class="stat-value" id="stat-acharya-leads">0</h3>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="stat-icon">🌐</div>
+          <div class="stat-content">
+            <span class="stat-label">Other Leads</span>
+            <h3 class="stat-value" id="stat-other-leads">0</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Row -->
+      <div class="admin-controls">
+        <div class="admin-search-wrapper">
+          <input type="text" class="form-control" id="admin-search" placeholder="Search leads by name, phone...">
+        </div>
+        <div class="admin-filter-wrapper">
+          <select class="form-control" id="admin-filter-college">
+            <option value="all">All Colleges</option>
+            <option value="SRM Institute of Science and Technology">SRM University</option>
+            <option value="VIT University, Vellore">VIT University</option>
+            <option value="Acharya Institutes">Acharya Institutes</option>
+            <option value="RV College of Engineering">RV College of Engineering</option>
+            <option value="other">Other Colleges</option>
+          </select>
+        </div>
+        <div class="admin-actions">
+          <button class="btn btn-primary" id="admin-export-btn" style="padding: 10px 20px; font-size: 0.85rem;">Export CSV</button>
+          <button class="btn btn-secondary" id="admin-clear-btn" style="padding: 10px 20px; font-size: 0.85rem; border-color: #ff4d4d; background: transparent; color: #ff4d4d;">Clear All</button>
+        </div>
+      </div>
+
+      <!-- Leads Table Container -->
+      <div class="admin-table-container">
+        <table class="admin-leads-table">
+          <thead>
+            <tr>
+              <th>Date & Time</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>College Preference</th>
+              <th>Course</th>
+              <th>Message</th>
+              <th>Source</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-leads-tbody">
+            <!-- Dynamic Lead Rows -->
+          </tbody>
+        </table>
+        <div class="admin-empty-state" id="admin-empty-state">
+          <div class="empty-icon">📭</div>
+          <h3>No Leads Captured Yet</h3>
+          <p>When users submit forms, their details will appear here.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Footer Section -->
   <footer class="footer">
     <div class="container">
@@ -709,6 +849,7 @@
         <div class="footer-bottom-links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms & Conditions</a>
+          <a href="#" id="footer-admin-btn">Admin Portal</a>
         </div>
       </div>
     </div>
